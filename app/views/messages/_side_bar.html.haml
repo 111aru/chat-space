@@ -1,0 +1,21 @@
+.chat-side
+  .side-header
+    .side-header__box
+      %p.side-header__box__user-name
+        user_name
+      %ul.side-header__box__menu
+        %li
+          =link_to "#", class: "side-header__box__menu__new-group side-header__box__menu__new-group__btn" do
+            = icon('fas', 'edit', class: "side-header__box__menu__new-group--icon")
+            %span<>
+        %li
+          =link_to "#", class: "side-header__box__menu__edit-user side-header__box__menu__edit-user__btn" do
+            = icon('fas', 'cog', class: "side-header__box__menu__edit-user--icon")
+            %span<>
+  .groups
+    .group
+      %p.group__group-name
+        group-name
+      %p.group__latest-message
+        messages
+ 
