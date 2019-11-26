@@ -32,9 +32,12 @@
     padding: 0 20px;
     height: 40px;
     line-height: 40px;
-    color: #38aef0;
     right: 40px;
-    position: absolute;   
+    position: absolute;
+    &__text{
+      text-decoration: none;
+      color: #38aef0;
+    }
   }
 }
 
@@ -55,6 +58,7 @@
       font-size: 16px;
       font-weight: bold;
       color: #434A54;
+      float: left;
     }
     &__date{
       font-size: 12px;
@@ -65,6 +69,9 @@
     font-size: 14px;
     color: #434A54;
     margin-bottom: 10px;
+    &__content{
+      color:#434A54;
+    }
   }
 }
 
