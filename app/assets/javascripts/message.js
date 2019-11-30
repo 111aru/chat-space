@@ -1,7 +1,9 @@
 $(function(){
 
   function buildMessage(message){
-    if (message.image) {
+      var image = message.image ?  `<img class="lower-message__image" src=${message.image}></img>` : "";
+      var content = message.content ? message.content : "";
+
       var html = `<div class="message">
                     <div class="message__upper-message">
                     <div class="message__upper-info__talker">
@@ -14,32 +16,13 @@ $(function(){
                     <p class="message__text">
                     </p>
                     <p class="message__text__content">
-                      ${message.content}
+                      ${content}
                     </p>
-                    <img class="lower-message__image" src="${message.image}">
-                    <p></p>
-                  </div>`
-      return  html;
-    } else {
-      var html = `<div class="message">
-                    <div class="message__upper-message">
-                    <div class="message__upper-info__talker">
-                      ${message.user_name}
-                    </div>
-                    <div class="message__upper-info__date">
-                      ${message.date}
-                    </div>
-                    </div>
-                    <p class="message__text">
-                    </p><p class="message__text__content">
-                      ${message.content}
-                    </p>
-                    
+                      ${image}
                     <p></p>
                   </div>`
       return html;
-    };
-  }
+  };
 
   $('#new_message').on('submit',function(e){
     e.preventDefault();
@@ -56,7 +39,6 @@ $(function(){
     .done(function(message){
       var html = buildMessage(message);
       $('.messages').append(html);
-      $('#message_content').val('');
       $('.messages').animate({ scrollTop: $('.messages')[0].scrollHeight});
       $('form')[0].reset();
       $('.submit-btn').prop('disabled', false);
