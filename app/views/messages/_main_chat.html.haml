@@ -1,6 +1,6 @@
 .chat-main
   .main-header
-    .main-header__left-box
+    .main-header__left-box{"data-group_id": "#{@group.id}"}
       %h2.main-header__left-box__current-group
         = @group.name
       %p.main-header__left-box__member-list
