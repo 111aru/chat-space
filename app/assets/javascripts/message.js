@@ -79,7 +79,6 @@ $(function(){
     group_id = $(".main-header__left-box").data("group_id");
     if (!group_id) return 
 
-      console.log(group_id);
       var url = `/groups/${group_id}/api/messages`
     $.ajax({
       url: url,
