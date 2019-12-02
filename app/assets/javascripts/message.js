@@ -4,23 +4,23 @@ $(function(){
       var image = message.image ?  `<img class="lower-message__image" src=${message.image}></img>` : "";
       var content = message.content ? message.content : "";
 
-      var html = `<div class="message">
-                    <div class="message__upper-message">
+    var html = `<div class="message" data-message_id=${message.id}>
+                  <div class="message__upper-message">
                     <div class="message__upper-info__talker">
                       ${message.user_name}
                     </div>
                     <div class="message__upper-info__date">
-                      ${message.date}
+                      ${message.created_at}
                     </div>
-                    </div>
-                    <p class="message__text">
-                    </p>
-                    <p class="message__text__content">
-                      ${content}
-                    </p>
-                      ${image}
-                    <p></p>
-                  </div>`
+                  </div>
+                  <p class="message__text">
+                  </p>
+                  <p class="message__text__content">
+                    ${content}
+                  </p>
+                    ${image}
+                  <p></p>
+                </div>`
       return html;
   };
 
@@ -49,4 +49,54 @@ $(function(){
     });
     return false;
   });
+  // 自動更新
+  var buildHTML = function(message) {
+    var image = message.image ? `<img class="lower-message__image" src=  ${message.image} ></img>` : "";
+    var content = message.content ? message.content : "";
+
+    var html = `<div class="message" data-message_id=${message.id}>
+                  <div class="message__upper-message">
+                    <div class="message__upper-info__talker">
+                      ${message.user_name}
+                    </div>
+                    <div class="message__upper-info__date">
+                      ${message.created_at}
+                    </div>
+                  </div>
+                  <p class="message__text">
+                  </p>
+                  <p class="message__text__content">
+                    ${content}
+                  </p>
+                    ${image}
+                  <p></p>
+                </div>`
+    return html;
+  };
+
+  var reloadMessages = function() {
+    last_message_id = $('.message').last().data('message_id');
+    group_id = $(".main-header__left-box").data("group_id");
+    if (!group_id) return 
+
+      var url = `/groups/${group_id}/api/messages`
+    $.ajax({
+      url: url,
+      type: 'GET',
+      dataType: 'json',
+      data: {id: last_message_id}
+    })
+    .done(function(messages){
+      var  insertHTML = '';
+      $.each(messages, function(i, message) {
+        insertHTML += buildHTML(message);
+      });
+      $('.messages').append(insertHTML);
+      $('.messages').animate({ scrollTop: $('.messages')[0].scrollHeight});
+    })
+    .fail(function() {
+      alert('error');
+    });
+  };
+  setInterval(reloadMessages, 7000);
 });
